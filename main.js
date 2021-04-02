@@ -13,11 +13,11 @@ worker.onmessage = (e) => {
 
 document
   .querySelector("#frame-for-rasterized-svg")
-  .addEventListener("load", () => {
+  .addEventListener("load", function () {
     //create new MessageChannel
     const msgChannel = new MessageChannel();
     //port1 => iframe
-    iframe.contentWindow.postMessage(null, "*", [msgChannel.port1]);
+    this.contentWindow.postMessage(null, "*", [msgChannel.port1]);
     //port2 => webworker
     worker.postMessage(null, [msgChannel.port2]);
   });
