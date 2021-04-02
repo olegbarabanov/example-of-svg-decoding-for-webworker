@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script>
+      self.onmessage = (e) =>
+        (e.ports[0].onmessage = (e) => {
+          const img = new this.contentWindow.Image();
+          img.onload = () => {
+            const offscreenCanvas = new this.contentWindow.OffscreenCanvas(
+              img.width,
+              img.height
+            );
+            offscreenCanvas.getContext("2d").drawImage(img, 0, 0);
+            const imageBitmap = offscreenCanvas.transferToImageBitmap();
+            e.ports[0].postMessage(imageBitmap, [imageBitmap]);
+          };
+          img.src = e.data;
+        });
+    </script>
+  </body>
+</html>
