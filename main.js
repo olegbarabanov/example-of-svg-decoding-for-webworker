@@ -1,14 +1,13 @@
 const worker = new Worker("worker.js");
 
 worker.onmessage = (e) => {
-  const canvas = document.createElement("canvas");
+  const canvas = document.querySelector("#canvas-for-rasterized-svg");
   const imageBitmap = e.data;
   canvas.width = imageBitmap.width;
   canvas.height = imageBitmap.height;
   const canvasCtx = canvas.getContext("2d");
   canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
   canvasCtx.drawImage(imageBitmap, 0, 0);
-  document.body.appendChild(canvas);
 };
 
 document

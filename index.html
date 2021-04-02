@@ -3,7 +3,33 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
+    <div>
+      <p>
+        This is a live example of how to get rasterized SVG in WebWorker
+        without blocking the main thread:
+      </p>
+      <ol>
+        <li>In the main thread, we create a new MessageChannel</li>
+        <li>
+          Then, in the same main thread, we create a web worker and an Iframe
+          and forward the MessageChannel ports (part1 and part2) to them.
+        </li>
+        <li>
+          WebWorker passes the necessary data to an Iframe, in which the SVG is
+          converted to a raster and sent as an ImageBitmap back to WebWorker.
+        </li>
+      </ol>
+      <p>
+        For clarity, the rasterized image is passed to the main thread and
+        displayed on the canvas
+      </p>
+      <div>
+        <p>See result:</p>
+        <canvas id="canvas-for-rasterized-svg"></canvas>
+      </div>
+    </div>
     <iframe id="frame-for-rasterized-svg" src="iframe.html"></iframe>
     <script src="main.js"></script>
   </body>
